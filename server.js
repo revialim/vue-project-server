@@ -1,20 +1,33 @@
-const express = require('express')
-const app = express()
-const port = 3000
+// const cors = require('cors');
+// var dbConnection = require('./db');
 
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const routes = require('./routes');
+const port = 3000;
 
-const user_object = {
-  id: 1,
-  name: "admin",
-  admin: true,
-  password: "admin",
-  email: "adminmail"
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(routes);
+
+app.listen(port, () => console.log(`Server listening on port ${port}!`));
+
+module.exports = {
+  app
 }
+// app.use(cors());
+// app.options('http://localhost:8080/', cors());
 
-app.get('/user', (req, res) => {
-  //console.log('req', req);
-  res.send(user_object)
-  })
+// const user_object = {
+//   id: 1,
+//   name: "admin",
+//   admin: true,
+//   password: "admin",
+//   email: "adminmail"
+// }
 
-
-app.listen(port, () => console.log(`Server listening on port ${port}!`))
+// app.get('/user', (req, res) => {
+//   //console.log('req', req);
+//   res.send(user_object)
+//   })
